@@ -1,0 +1,321 @@
+
+# Crop Recommendation System
+
+### Machine Learning-Based Crop Recommendation Web Application
+
+A machine learning project that recommends suitable crops based on soil characteristics and environmental conditions.
+
+The project combines **data analysis, machine learning, and web development** to build a crop recommendation system. A classification model is trained using agricultural data and integrated into a Django web application, allowing users to obtain crop recommendations through a simple interface.
+
+## Project Overview
+
+Choosing a suitable crop depends on several factors, including soil nutrients, temperature, humidity, soil pH, and rainfall.
+
+The objective of this project is to explore how machine learning can help identify a suitable crop based on these agricultural and environmental characteristics.
+
+The project covers the following steps:
+
+1. Exploring and understanding the agricultural dataset.
+2. Checking data quality and analyzing feature relationships.
+3. Training and comparing machine learning classification models.
+4. Evaluating the selected model.
+5. Saving the trained model using Pickle.
+6. Integrating the model into a Django web application.
+
+**GitHub Repository:**  
+https://github.com/Lidelle123/crop_recommendation_system
+
+## Project Objectives
+
+- Explore agricultural data and identify patterns in soil and environmental conditions.
+- Build a multiclass classification model to recommend crops.
+- Compare different machine learning algorithms.
+- Evaluate prediction performance on unseen test data.
+- Develop a user-friendly web interface for crop recommendations.
+- Connect a trained machine learning model to a Django application.
+
+## Technologies Used
+
+| Category | Technologies |
+|----------|--------------|
+| Programming Language | Python |
+| Data Analysis | Pandas, NumPy |
+| Data Visualization | Matplotlib, Seaborn |
+| Machine Learning | Scikit-learn |
+| Model Serialization | Pickle |
+| Web Framework | Django |
+| Frontend | HTML, CSS |
+| Development Environment | Jupyter Notebook |
+| Version Control | Git, GitHub |
+
+---
+
+## Dataset Description
+
+The model was developed using a crop recommendation dataset containing **2,200 observations** and **22 crop categories**.
+
+Each crop category contains 100 observations.
+
+### Dataset Features
+
+| Feature | Description |
+|---------|-------------|
+| N | Nitrogen content in the soil |
+| P | Phosphorus content in the soil |
+| K | Potassium content in the soil |
+| temperature | Temperature in degrees Celsius |
+| humidity | Relative humidity (%) |
+| ph | Soil pH level |
+| rainfall | Rainfall in millimeters |
+| label | Crop category (target variable) |
+
+### Dataset Summary
+
+| Metric | Value |
+|--------|-------|
+| Total observations | 2,200 |
+| Input features | 7 |
+| Target variable | Crop type |
+| Crop categories | 22 |
+| Missing values | 0 |
+| Duplicate rows | 0 |
+
+The dataset contains the following crops:
+
+Rice, Maize, Jute, Cotton, Coconut, Papaya, Orange, Apple, Muskmelon, Watermelon, Grapes, Mango, Banana, Pomegranate, Lentil, Blackgram, Mungbean, Mothbeans, Pigeonpeas, Kidneybeans, Chickpea, and Coffee.
+
+## Exploratory Data Analysis (EDA)
+
+Before training the models, exploratory data analysis was performed to understand the dataset and examine data quality.
+
+The analysis included:
+
+- Inspecting the dataset structure and data types.
+- Checking for missing values.
+- Identifying duplicate records.
+- Computing descriptive statistics.
+- Examining the distribution of crop categories.
+- Analyzing correlations between numerical features.
+- Visualizing correlations using a heatmap.
+
+## Machine Learning Approach
+
+### 1. Data Preparation
+
+The crop names were converted into numerical class labels for machine learning.
+
+The dataset was divided into:
+
+- **80% training data:** 1,760 observations
+- **20% testing data:** 440 observations
+
+The seven numerical features were used to predict the crop category.
+
+### 2. Model Comparison
+
+Several classification algorithms were trained and evaluated using classification accuracy.
+
+The notebook compares the following models:
+
+| Algorithm | Test Accuracy |
+|-----------|---------------|
+| Logistic Regression | 96.82% |
+| Gaussian Naive Bayes | 99.55% |
+| K-Nearest Neighbors | 97.95% |
+| Decision Tree | 97.73% |
+| Extra Tree | 92.27% |
+| Random Forest | 99.09% |
+| Bagging Classifier | 97.73% |
+| Gradient Boosting | 98.86% |
+| AdaBoost | 17.95% |
+
+The final model was serialized using Python's `pickle` module and saved as:
+
+`crop_recommendation_model.pkl`
+
+## Crop Recommendation Workflow
+
+The recommendation system takes seven numerical inputs and returns a predicted crop.
+
+```text
+          User Input
+              |
+              v
+  Soil Nutrients (N, P, K)
+              +
+  Environmental Conditions
+  (Temperature, Humidity,
+       pH, Rainfall)
+              |
+              v
+       Django Web App
+              |
+              v
+       Input Processing
+              |
+              v
+    Trained Decision Tree
+              |
+              v
+       Crop Prediction
+              |
+              v
+    Recommended Crop Name
+```
+
+The trained model produces a numerical class prediction, which is mapped back to the corresponding crop name.
+
+### Example Input
+
+The training notebook includes the following prediction example:
+
+| Parameter | Value |
+|-----------|-------|
+| Nitrogen (N) | 117 |
+| Phosphorus (P) | 32 |
+| Potassium (K) | 34 |
+| Temperature | 26.272418 °C |
+| Humidity | 52.127394% |
+| pH | 6.758793 |
+| Rainfall | 127.175293 mm |
+
+**Recorded prediction:** Coffee
+
+---
+
+## Django Web Application
+
+The trained model is integrated into a Django application.
+
+The interface allows users to enter soil and environmental measurements and request a crop recommendation.
+
+### Main Features
+
+- Homepage introducing the crop recommendation system.
+- Form for entering the seven numerical parameters.
+- Integration with a serialized machine learning model.
+- Crop prediction based on the submitted values.
+- Display of the recommended crop.
+- Basic input validation for missing or invalid values.
+
+### Application Routes
+
+| Route | Description |
+|-------|-------------|
+| `/` | Homepage |
+| `/predict/` | Crop recommendation form |
+| `/predict/result` | Prediction processing and result |
+
+The prediction view loads the saved model, processes the form inputs, generates a prediction, and displays the result in the application.
+
+The model training and experimentation are documented in a separate Jupyter notebook.
+
+**Training notebook:** `crop_recommendation-checkpoint.ipynb`
+---
+
+## Installation and Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Lidelle123/crop_recommendation_system.git
+cd crop_recommendation_system
+```
+
+### 2. Create a Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+Activate it on Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+On macOS or Linux:
+
+```bash
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install django scikit-learn pandas numpy matplotlib seaborn
+```
+
+For model inference, Django and the compatible scikit-learn dependencies are the most important components.
+
+### 4. Open the Django Project
+
+```bash
+cd crop_recommendation
+```
+
+### 5. Check the Model Path
+
+Ensure that the model path in `views.py` points to the existing `crop_recommendation_model.pkl` file.
+
+The serialized model is stored in the same directory as `manage.py`.
+
+### 6. Start the Development Server
+
+```bash
+python manage.py runserver
+```
+
+If the Django configuration requires database setup, run:
+
+```bash
+python manage.py migrate
+```
+
+### 7. Open the Application
+
+Visit:
+
+http://127.0.0.1:8000/
+
+Then:
+
+1. Click the button to access the recommendation form.
+2. Enter the seven soil and environmental parameters.
+3. Submit the form.
+4. View the recommended crop.
+---
+
+## 📈 Results and Learnings
+
+This project demonstrates the implementation of an end-to-end machine learning workflow, from exploratory analysis to application integration.
+
+### Main Results
+
+- Explored 2,200 agricultural observations.
+- Worked with seven numerical input features.
+- Developed a classification task covering 22 crop categories.
+- Compared nine machine learning models.
+- Achieved 97.50% recorded test accuracy with the final Decision Tree model.
+- Serialized the model for reuse in a web application.
+- Created a Django interface for submitting prediction inputs.
+
+### Skills Developed
+
+**Data Analysis**
+- Data exploration and validation
+- Statistical summaries
+- Correlation analysis
+- Data visualization
+
+**Machine Learning**
+- Multiclass classification
+- Train/test splitting
+- Model comparison and evaluation
+- Model serialization
+
+**Web Development**
+- Django routing and views
+- HTML form processing
+- Backend model integration
+- Displaying model predictions
