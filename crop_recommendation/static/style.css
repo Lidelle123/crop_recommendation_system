@@ -16,10 +16,32 @@ h1 {
 
 form {
     width: 500px;
+    max-width: calc(100% - 42px);
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+.prediction-result {
+    width: 500px;
+    max-width: calc(100% - 42px);
+    margin: 0 auto 20px;
+    padding: 16px 20px;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    background-color: #eaf6ea;
+    color: #245b27;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+    box-sizing: content-box;
+}
+
+.prediction-error {
+    border-color: #c62828;
+    background-color: #fdecec;
+    color: #8e1b1b;
 }
 
 .form-group {
