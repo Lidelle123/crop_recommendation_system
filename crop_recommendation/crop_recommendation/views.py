@@ -55,7 +55,11 @@ def result(request):
         val7 = float(request.POST['rainfall'])
     except (KeyError, ValueError):
         # Handle potential errors (missing keys or non-numeric values)
-        return render(request, "predict.html", {"result2": "Erreur: Données insuffisantes ou incorrectes  pour predire la culture"})
+        return render(request, "predict.html", {
+            "result2": "Erreur: Données insuffisantes ou incorrectes pour prédire la culture",
+            "values": request.POST,
+            "has_error": True,
+        })
 
         # Prepare the input data for prediction
     data = [[val1, val2, val3, val4, val5, val6, val7]]
@@ -64,9 +68,9 @@ def result(request):
     pred = model.predict(data)  # Assuming the model returns a single prediction
 
     # Look up the predicted crop using the crop dictionary
-    predicted_crop_label = list(crop_dict.keys())[list(crop_dict.values()).index(int(pred))]
+    predicted_crop_label = list(crop_dict.keys())[list(crop_dict.values()).index(int(pred[0]))]
 
     # Prepare the recommendation result for the template
     result1 = f"Culture recommandée: {predicted_crop_label}"
 
-    return render(request, "predict.html", {"result2": result1})
+    return render(request, "predict.html", {"result2": result1, "values": request.POST})

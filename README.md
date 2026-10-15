@@ -7,6 +7,8 @@ A machine learning project that recommends suitable crops based on soil characte
 
 The project combines **data analysis, machine learning, and web development** to build a crop recommendation system. A classification model is trained using agricultural data and integrated into a Django web application, allowing users to obtain crop recommendations through a simple interface.
 
+![Crop Recommendation Homepage](./crop_recommendation/static/cropRecommendation/images/01-accueil.png)
+
 ## Project Overview
 
 Choosing a suitable crop depends on several factors, including soil nutrients, temperature, humidity, soil pH, and rainfall.
@@ -22,8 +24,6 @@ The project covers the following steps:
 5. Saving the trained model using Pickle.
 6. Integrating the model into a Django web application.
 
-**GitHub Repository:**  
-https://github.com/Lidelle123/crop_recommendation_system
 
 ## Project Objectives
 
@@ -109,26 +109,6 @@ The dataset was divided into:
 - **80% training data:** 1,760 observations
 - **20% testing data:** 440 observations
 
-The seven numerical features were used to predict the crop category.
-
-### 2. Model Comparison
-
-Several classification algorithms were trained and evaluated using classification accuracy.
-
-The notebook compares the following models:
-
-| Algorithm | Test Accuracy |
-|-----------|---------------|
-| Logistic Regression | 96.82% |
-| Gaussian Naive Bayes | 99.55% |
-| K-Nearest Neighbors | 97.95% |
-| Decision Tree | 97.73% |
-| Extra Tree | 92.27% |
-| Random Forest | 99.09% |
-| Bagging Classifier | 97.73% |
-| Gradient Boosting | 98.86% |
-| AdaBoost | 17.95% |
-
 The final model was serialized using Python's `pickle` module and saved as:
 
 `crop_recommendation_model.pkl`
@@ -163,7 +143,11 @@ The recommendation system takes seven numerical inputs and returns a predicted c
     Recommended Crop Name
 ```
 
-The trained model produces a numerical class prediction, which is mapped back to the corresponding crop name.
+### Crop Recommendation Form
+
+The user enters seven soil and environmental parameters through the web interface.
+
+![Crop Prediction Form](./crop_recommendation/static/cropRecommendation/images/02-formulaire-prediction.png)
 
 ### Example Input
 
@@ -174,10 +158,10 @@ The training notebook includes the following prediction example:
 | Nitrogen (N) | 117 |
 | Phosphorus (P) | 32 |
 | Potassium (K) | 34 |
-| Temperature | 26.272418 °C |
-| Humidity | 52.127394% |
-| pH | 6.758793 |
-| Rainfall | 127.175293 mm |
+| Temperature | 26.27 °C |
+| Humidity | 52% |
+| pH | 6.7 |
+| Rainfall | 127.17 mm |
 
 **Recorded prediction:** Coffee
 
@@ -198,19 +182,14 @@ The interface allows users to enter soil and environmental measurements and requ
 - Display of the recommended crop.
 - Basic input validation for missing or invalid values.
 
-### Application Routes
+### Prediction Result
 
-| Route | Description |
-|-------|-------------|
-| `/` | Homepage |
-| `/predict/` | Crop recommendation form |
-| `/predict/result` | Prediction processing and result |
+After submitting the form, the application processes the input values and displays the recommended crop.
 
-The prediction view loads the saved model, processes the form inputs, generates a prediction, and displays the result in the application.
-
-The model training and experimentation are documented in a separate Jupyter notebook.
+![Crop Recommendation Result](./crop_recommendation/static/cropRecommendation/images/03-resultat-prediction..png)
 
 **Training notebook:** `crop_recommendation-checkpoint.ipynb`
+
 ---
 
 ## Installation and Setup
@@ -228,17 +207,7 @@ cd crop_recommendation_system
 python -m venv venv
 ```
 
-Activate it on Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-On macOS or Linux:
-
-```bash
-source venv/bin/activate
-```
+Activate it 
 
 ### 3. Install Dependencies
 
@@ -246,21 +215,13 @@ source venv/bin/activate
 pip install django scikit-learn pandas numpy matplotlib seaborn
 ```
 
-For model inference, Django and the compatible scikit-learn dependencies are the most important components.
-
 ### 4. Open the Django Project
 
 ```bash
 cd crop_recommendation
 ```
 
-### 5. Check the Model Path
-
-Ensure that the model path in `views.py` points to the existing `crop_recommendation_model.pkl` file.
-
-The serialized model is stored in the same directory as `manage.py`.
-
-### 6. Start the Development Server
+### 5. Start the Development Server
 
 ```bash
 python manage.py runserver
@@ -272,7 +233,7 @@ If the Django configuration requires database setup, run:
 python manage.py migrate
 ```
 
-### 7. Open the Application
+### 6. Open the Application
 
 Visit:
 
@@ -284,38 +245,5 @@ Then:
 2. Enter the seven soil and environmental parameters.
 3. Submit the form.
 4. View the recommended crop.
+
 ---
-
-## 📈 Results and Learnings
-
-This project demonstrates the implementation of an end-to-end machine learning workflow, from exploratory analysis to application integration.
-
-### Main Results
-
-- Explored 2,200 agricultural observations.
-- Worked with seven numerical input features.
-- Developed a classification task covering 22 crop categories.
-- Compared nine machine learning models.
-- Achieved 97.50% recorded test accuracy with the final Decision Tree model.
-- Serialized the model for reuse in a web application.
-- Created a Django interface for submitting prediction inputs.
-
-### Skills Developed
-
-**Data Analysis**
-- Data exploration and validation
-- Statistical summaries
-- Correlation analysis
-- Data visualization
-
-**Machine Learning**
-- Multiclass classification
-- Train/test splitting
-- Model comparison and evaluation
-- Model serialization
-
-**Web Development**
-- Django routing and views
-- HTML form processing
-- Backend model integration
-- Displaying model predictions
